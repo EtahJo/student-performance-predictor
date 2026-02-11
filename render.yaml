@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: student-predictor-backend
+    env: python
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    startCommand: gunicorn config.wsgi:application
+    envVars:
+      - key: DJANGO_DEBUG
+        value: "0"
+      - key: DJANGO_ALLOWED_HOSTS
+        value: ".onrender.com"
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
